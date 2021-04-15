@@ -1,0 +1,45 @@
+<form [formGroup] = "FormCliente">
+
+  <div class="form-row">
+
+    <div class="form-group col-md-6">
+      <label>Nombre</label>
+      <input formControlName="nombre" name = "nombre" type="text" class="form-control" [(ngModel)]="cliente.nombre"/>
+      <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+        <div *ngIf="nombre.errors.required">
+          Debe ingresar un nombre
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label>Apellido</label>
+      <input formControlName="apellido" name = "apellido" type="text" class="form-control" [(ngModel)]="cliente.apellido"/>
+      <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+        <div *ngIf="apellido.errors.required">
+          Debe ingresar un apellido
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label>Email</label>
+      <input formControlName="email" name = "email" type="email" class="form-control" [(ngModel)]="cliente.email"/>
+      <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div *ngIf="email.errors.email">
+          Email inválido
+        </div>
+        <div *ngIf="email.errors.required">
+          Email requerido
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <button style = "margin-top: 5px;" (click) = "saveCliente() " [disabled] = "!FormCliente.valid" type="submit" class="btn btn-primary" *ngIf="cliente.id==null else editar">Guardar</button>
+    <ng-template #editar>
+      <button style = "margin-top: 5px;" (click) = "updateCliente()" [disabled] = "!FormCliente.valid" type="submit" class="btn btn-primary">Editar</button>
+    </ng-template>
+
+</form>
